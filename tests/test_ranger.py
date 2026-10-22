@@ -24,6 +24,8 @@ PALETTE = load_palette()
 C = PALETTE.colors
 sys.path.insert(0, str(REPO))
 
+# ranger.gui.color calls curses.setupterm() on import, which fails when TERM is unset (as on CI runners).
+os.environ.setdefault("TERM", "xterm-256color")
 requires_ranger_lib = pytest.mark.skipif(importlib.util.find_spec("ranger") is None, reason="requires ranger-fm")
 requires_ranger = pytest.mark.skipif(not (tmux_available() and importlib.util.find_spec("ranger")), reason="requires tmux and ranger-fm")
 # The ranger-fm 1.9.4 launcher script is broken on Python 3.14, so start ranger the way that script does.
