@@ -107,7 +107,7 @@ class Deepwick(ColorScheme):
             if context.nlink:
                 fg = C["muted"]
             if context.link:
-                fg = C["cyan"]
+                fg = C["red"] if context.bad else C["cyan"]
             if context.marked:
                 attr |= bold
                 fg = C["background"]

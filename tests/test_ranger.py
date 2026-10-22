@@ -115,6 +115,8 @@ CASES = [
     (("in_statusbar", "mtime"), "comment", DEFAULT, False),
     (("in_statusbar", "nlink"), "muted", DEFAULT, False),
     (("in_statusbar", "link"), "cyan", DEFAULT, False),
+    (("in_statusbar", "link", "good"), "cyan", DEFAULT, False),
+    (("in_statusbar", "link", "bad"), "red", DEFAULT, False),
     (("in_statusbar", "message"), DEFAULT, DEFAULT, False),
     (("in_statusbar", "message", "bad"), "red", DEFAULT, True),
     (("in_statusbar", "marked"), "background", "gold", True),
@@ -230,6 +232,16 @@ def test_renders_file_types(tmp_path):
         assert style_of(out, name)["fg"] is None, name
     borders = [style for chunk, style in runs(out) if chunk and set(chunk) <= set("─│┌┐└┘┬┴├┤┼")]
     assert borders and all(style["fg"] == ansi("overlay") for style in borders)
+
+
+@requires_ranger
+def test_status_bar_link_targets(tmp_path):
+    tree = make_tree(tmp_path / "tree")
+    # Directories sort first: src, then app.py, broken, bundle.tar.gz, clip.mp4, link.
+    out = ranger(tmp_path, tree, keys=("j", "j"), after="-> missing")
+    assert style_of(out, "-> missing")["fg"] == ansi("red")
+    out = ranger(tmp_path / "again", tree, keys=("j",) * 5, after="-> app.py")
+    assert style_of(out, "-> app.py")["fg"] == ansi("cyan")
 
 
 def git(repo, *args):
