@@ -38,7 +38,8 @@ A `rc.conf` holding only that line works: ranger loads its built-in
   copied files are Muted; git status marks (`vcs_aware`) are Green for staged
   and clean, Blue for changed, Teal for untracked.
 - ranger draws through curses, which has no 24-bit color, so these are the
-  nearest 256-color matches. Backgrounds are left to the terminal, so a
+  colors from [Deepwick's 256-color palette](https://github.com/deepwick/spec#256-color-palette).
+  Backgrounds are left to the terminal, so a
   Deepwick terminal theme ([Konsole](https://github.com/deepwick/konsole),
   [Ptyxis](https://github.com/deepwick/ptyxis),
   [Alacritty](https://github.com/deepwick/alacritty),

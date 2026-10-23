@@ -16,7 +16,6 @@ from deepwick_spec.ansi import runs
 from deepwick_spec.check_port import check_port
 from deepwick_spec.palette import load_palette
 from deepwick_spec.tui import capture, tmux_available
-from deepwick_spec.xterm256 import nearest_index
 
 REPO = Path(__file__).resolve().parents[1]
 SCHEME = REPO / "deepwick.py"
@@ -34,7 +33,7 @@ DEFAULT = -1
 
 
 def idx(name):
-    return nearest_index(C[name])
+    return PALETTE.xterm256[name]
 
 
 def test_generated_block_matches():
